@@ -1,16 +1,14 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
-require('dotenv').config();
 const bodyParser = require('body-parser');
-const userRoute = require('./routes/user');
+const personRoute = require('./routes/person');
+const db = require('./db');
 
 app.use(bodyParser.json());
-app.use('/user', userRoute);
+app.use('/person', personRoute);
 
-// database connection
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log('Connected to database.');
-});
+db.connect();
 
 app.listen(3000);
+
+module.exports = app;
